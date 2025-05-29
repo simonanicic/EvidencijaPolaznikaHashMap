@@ -1,19 +1,16 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.TreeMap;
+import java.util.*;
 
 public class EvidencijaPolaznika {
 
-    private static Map<String, Polaznik> polaznici = new TreeMap<>();
-
+    private static final Map<String, Polaznik> polazniciMap = new HashMap<>();
+    private static final List<Polaznik> polazniciList = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         String input = "";
 
-        while(!input.equals("3")) {
-            System.out.println("1. Unos polaznika\n2. Ispis polaznika\n3. Izlaz");
+        while(!input.equals("4")) {
+            System.out.println("1. Unos polaznika\n2. Izmiješaj polaznike\n3. Ispis polaznika\n4. Izlaz");
             input = sc.nextLine();
             switch (input) {
                 case "1": {
@@ -21,11 +18,15 @@ public class EvidencijaPolaznika {
                     break;
                 }
                 case "2": {
-                    ispisPolaznika();
+                    izmijesajPolaznike();
                     break;
                 }
                 case "3": {
-                    return;
+                    ispisPolaznika();
+                    break;
+                }
+                case "4": {
+                    break;
                 }
                 default: {
                     System.out.println("Pogrešan unos!");
@@ -48,15 +49,19 @@ public class EvidencijaPolaznika {
 
         Polaznik polaznik = new Polaznik(ime, prezime, email);
 
-        if(polaznici.containsKey(email)) {
+        if(polazniciMap.containsKey(email)) {
             System.out.println("Korisnik s tim emailom već postoji!");
         } else {
-            polaznici.put(email, polaznik);
-            polaznik.ispisDetaljaPolaznika();
+            polazniciMap.put(email, polaznik);
         }
     }
 
     private static void ispisPolaznika() {
-        polaznici.forEach((email, polaznik) -> polaznik.ispisDetaljaPolaznika());
+        polazniciList.forEach(Polaznik::ispisDetaljaPolaznika);
+    }
+
+    private static void izmijesajPolaznike() {
+        polazniciMap.forEach((email, polaznik) -> polazniciList.add(polaznik));
+        Collections.shuffle(polazniciList);
     }
 }
