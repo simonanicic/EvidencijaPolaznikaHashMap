@@ -1,10 +1,11 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class EvidencijaPolaznika {
 
-    private static final Map<String, Polaznik> polaznici = new HashMap<>();
+    private static Map<String, Polaznik> polaznici = new TreeMap<>();
 
 
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class EvidencijaPolaznika {
                     break;
                 }
                 case "3": {
-                    break;
+                    return;
                 }
                 default: {
                     System.out.println("Pogrešan unos!");
@@ -51,6 +52,7 @@ public class EvidencijaPolaznika {
             System.out.println("Korisnik s tim emailom već postoji!");
         } else {
             polaznici.put(email, polaznik);
+            polaznik.ispisDetaljaPolaznika();
         }
     }
 
